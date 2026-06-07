@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Text Generation</title>
+  <style>
+    body {
+      font-family: Georgia, serif;
+      max-width: 720px;
+      margin: 48px auto;
+      padding: 0 16px;
+      line-height: 1.6;
+      color: #1f2933;
+      background: #f8fafc;
+    }
+    h1 { margin-bottom: 8px; }
+    p.subtitle { color: #52606d; margin-top: 0; }
+    form { margin-top: 24px; }
+    label { display: block; font-weight: 600; margin-bottom: 8px; }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd2d9;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+    button {
+      margin-top: 12px;
+      padding: 10px 18px;
+      border: none;
+      border-radius: 8px;
+      background: #2563eb;
+      color: white;
+      cursor: pointer;
+    }
+    .output, .error {
+      margin-top: 24px;
+      padding: 16px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+    }
+    .output { background: white; border: 1px solid #d9e2ec; }
+    .error { background: #fee2e2; color: #991b1b; }
+  </style>
+</head>
+<body>
+  <h1>Text Generation</h1>
+  <p class="subtitle">5-gram LSTM trained on Harry Potter and the Sorcerer's Stone.</p>
+
+  <form action="/generate" method="post">
+    <label for="seed_text">Seed phrase</label>
+    <input
+      id="seed_text"
+      name="seed_text"
+      type="text"
+      placeholder="and mrs dursley woke up"
+      value="{{ seed_text or '' }}"
+      required
+    >
+    <button type="submit">Generate</button>
+  </form>
+
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+
+  {% if prediction_text %}
+    <div class="output">{{ prediction_text }}</div>
+  {% endif %}
+</body>
+</html>
